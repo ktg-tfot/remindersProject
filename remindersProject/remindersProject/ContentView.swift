@@ -15,9 +15,8 @@ struct ContentView: View
     @State private var editMode: EditMode = .inactive
     @State private var searchText = ""
     
-    //    var test1: [Int] = [1, 2, 3]
-    //    private var gridItems = [GridItem(.fixed(150)),
-    //                             GridItem(.fixed(150)), GridItem(.fixed(150))]
+    @State private var showAddReminder: Bool = false
+    
     let gridCell = [GridItem(.flexible()),GridItem(.flexible())]
     let listNames = ["오늘", "예정", "전체", "완료됨"]
     let listIcons = ["calendar.circle.fill",
@@ -37,9 +36,16 @@ struct ContentView: View
                     {
                         ForEach(listNames, id: \.self)
                         { listNames in
-                            HStack
+                            VStack
                             {
-                                Image(systemName: listIcons[2])
+                                HStack
+                                {
+                                    Image(systemName: listIcons[0])
+                                        .padding(10)
+                                    Text("0")
+                                        .padding(10)
+                                }
+                                
                                 Text(listNames)
                             }
                         }
@@ -86,6 +92,7 @@ struct ContentView: View
                         Button
                         {
                             print("[D]새로운미리알림 버튼")
+                            showAddReminder = true
                         }
                         label:
                         {
@@ -107,7 +114,10 @@ struct ContentView: View
                 }
             }
         }
-        
+        .sheet(isPresented: $showAddReminder)
+        {
+            AddReminderView() 
+        }
     }
     
     //Check A
@@ -124,12 +134,12 @@ struct ContentView: View
     }
 }
 
-private func addItem() {
+//private func addItem() {
     //    withAnimation {
     //        let newItem = Item(timestamp: Date())
     //        modelContext.insert(newItem)
     //    }
-}
+//}
 
 //    private func deleteItems(offsets: IndexSet) {
 //        withAnimation {
@@ -140,7 +150,8 @@ private func addItem() {
 //    }
 //}
 
-#Preview {
+#Preview
+{
     ContentView()
     //        .modelContainer(for: Item.self, inMemory: true)
 }

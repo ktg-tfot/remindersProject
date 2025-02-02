@@ -25,7 +25,7 @@ final class Item
     var isEnd: Bool = false
     
     init(title: String,
-         content: String,
+         content: String? = nil,
          createdDate: Date = Date(),
          dDayDate: Date? = nil,
          isEnd: Bool = false)

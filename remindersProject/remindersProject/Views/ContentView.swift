@@ -153,7 +153,7 @@ struct ContentView: View
                 Section(header: Text("나의 목록")
                     .font(.title2)
                     .fontWeight(.bold)
-                    .foregroundColor(Color.black)
+                    .foregroundStyle(.black)
                     .padding([.leading, .bottom], 10.0))
                 {
                     

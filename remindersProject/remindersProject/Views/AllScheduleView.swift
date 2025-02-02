@@ -20,16 +20,39 @@ struct AllScheduleView: View
         {
             List
             {
-                ForEach(items)
-                { item in
-                    Text(item.title)
+                Section(header: Text("미리 알림")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.blue))
+                {
+                    ForEach(items)
+                    { item in
+                        VStack
+                        {
+                            HStack
+                            {
+                                Image(systemName: item.isEnd ? "largecircle.fill.circle" : "circle")
+                                    .foregroundStyle(item.isEnd ? .blue : .gray)
+                                    .strikethrough(item.isEnd)
+                                    .onTapGesture {
+                                        item.isEnd.toggle()
+                                    }
+                                Text(item.title)
+                                    .foregroundStyle(item.isEnd ? .gray : .black)
+                            }
+                            Text(item.content ?? "")
+                                .font(.footnote)
+                                .foregroundStyle(.gray)
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
             }
-            .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(true)  //GPT 참고
+            .navigationTitle("전체")
             .toolbar
             {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {  //GPT 참고
                     Button
                     {
                         dismiss()

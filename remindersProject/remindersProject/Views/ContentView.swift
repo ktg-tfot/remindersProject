@@ -75,7 +75,7 @@ struct ContentView: View
                     }
                     label:
                     {
-                        let isEndCountValue = items.filter
+                        let isEndCountValue = items.filter  //GPT 활용
                         {
                             $0.isEnd == true
                         }

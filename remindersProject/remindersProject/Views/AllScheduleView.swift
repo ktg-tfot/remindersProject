@@ -7,15 +7,66 @@
 
 import SwiftUI
 
-struct AllScheduleView: View {
+struct AllScheduleView: View
+{
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
     var items: [Item]
     
-    var body: some View {
-        Text("AllScheduleView")
+    var body: some View
+    {
+        NavigationStack
+        {
+            List
+            {
+                ForEach(items)
+                { item in
+                    Text(item.title)
+                }
+                .onDelete(perform: deleteItems)
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbar
+            {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button
+                    {
+                        dismiss()
+                    }
+                    label:
+                    {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                                .bold()
+                            Text("목록")
+                        }
+                    }
+                }
+                
+                ToolbarItem(/*placement: .topBarLeading*/)  //GPT 참고
+                {
+                    Button
+                    {
+                        print("[D]메뉴 버튼")
+                    }
+                    label:
+                    {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+        }
     }
+    
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(items[index])
+            }
+        }
+    }
+    
 }
 
 //#Preview {
